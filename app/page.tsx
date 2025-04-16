@@ -138,6 +138,12 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
 
 export default function Home() {
   const email = "harshdave1094@gmail.com";
+  const socialLinks = {
+    linkedin: 'https://www.linkedin.com/in/harshdave95',
+    github: 'https://github.com/coderhd',
+    instagram: 'https://www.instagram.com/harshh.1995',
+    twitter: 'https://x.com/harshdave1094',
+  };
   const companies = [
     {
       name: "Ashutec",
@@ -345,7 +351,7 @@ export default function Home() {
               </li>
               <li>
                 <Link
-                  href="https://drive.google.com/file/d/1i50ysw12PS_o5_HyocVlB6qUzbtTLOkg/view"
+                  href="https://drive.google.com/file/d/1a3o0W4aC-PZmn3wF7sNyFoMX4woG28wU/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-3 py-2 rounded-sm hover:bg-[#64ffda]/10 transition-colors"
                 >
@@ -426,7 +432,7 @@ export default function Home() {
               </li>
               <li className="w-full text-center mt-6">
                 <Link
-                  href="https://drive.google.com/file/d/1i50ysw12PS_o5_HyocVlB6qUzbtTLOkg/view"
+                  href="https://drive.google.com/file/d/1a3o0W4aC-PZmn3wF7sNyFoMX4woG28wU/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-8 py-4 rounded-sm hover:bg-[#64ffda]/10 transition-colors inline-block text-base"
                 >
@@ -440,16 +446,16 @@ export default function Home() {
 
       {/* Side social links - hidden on small screens */}
       <div className={`fixed left-8 bottom-0 md:flex flex-col items-center gap-6 after:content-[''] after:w-[1px] after:h-24 after:bg-gray-400 after:mt-6 ${isLoading ? 'opacity-0' : 'opacity-100 animate-fadeIn'} hidden`}>
-        <Link href="#" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
+        <Link href={socialLinks.linkedin} target="_blank" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
           <Linkedin size={20} />
         </Link>
-        <Link href="#" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
+        <Link href={socialLinks.github} target="_blank" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
           <Github size={20} />
         </Link>
-        <Link href="#" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
+        <Link href={socialLinks.instagram} target="_blank" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
           <Instagram size={20} />
         </Link>
-        <Link href="#" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
+        <Link href={socialLinks.twitter} target="_blank" className="hover:text-[#64ffda] transition-colors p-2 duration-200">
           <Twitter size={20} />
         </Link>
       </div>
@@ -705,16 +711,16 @@ export default function Home() {
         >
           {/* Mobile social links (visible only on mobile) */}
           <div className="flex items-center justify-center gap-6 mb-3 md:hidden">
-            <Link href="#" className="text-[#0c192f] transition-colors p-1">
+            <Link href={socialLinks.linkedin} target="_blank" className="text-[#0c192f] transition-colors p-1">
               <Linkedin size={18} />
             </Link>
-            <Link href="#" className="text-[#0c192f] transition-colors p-1">
+            <Link href={socialLinks.github} target="_blank" className="text-[#0c192f] transition-colors p-1">
               <Github size={18} />
             </Link>
-            <Link href="#" className="text-[#0c192f] transition-colors p-1">
+            <Link href={socialLinks.instagram} target="_blank" className="text-[#0c192f] transition-colors p-1">
               <Instagram size={18} />
             </Link>
-            <Link href="#" className="text-[#0c192f] transition-colors p-1">
+            <Link href={socialLinks.twitter} target="_blank" className="text-[#0c192f] transition-colors p-1">
               <Twitter size={18} />
             </Link>
           </div>
@@ -729,7 +735,14 @@ export default function Home() {
               document.getElementById('footer-container')?.classList.add('bg-[#64ffda]');
             }}
           >
-            Designed & Built By Harsh Dave
+            <a
+              href="https://github.com/coderhd/coderhd.github.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-inherit"
+            >
+              Designed & Built By Harsh Dave
+            </a>
           </span>
         </footer>
       </div>
