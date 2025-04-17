@@ -351,7 +351,7 @@ export default function Home() {
               </li>
               <li>
                 <Link
-                  href="https://drive.google.com/file/d/1VGUrPH_EcUjI4s2k2LkMpKoAdKwWyQCt/view"
+                  href="https://drive.google.com/file/d/19r3mIyShOkOAAXVclH_0EaxNQAp-kUsk/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-3 py-2 rounded-sm hover:bg-[#64ffda]/10 transition-colors"
                 >
@@ -432,7 +432,7 @@ export default function Home() {
               </li>
               <li className="w-full text-center mt-6">
                 <Link
-                  href="https://drive.google.com/file/d/1VGUrPH_EcUjI4s2k2LkMpKoAdKwWyQCt/view"
+                  href="https://drive.google.com/file/d/19r3mIyShOkOAAXVclH_0EaxNQAp-kUsk/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-8 py-4 rounded-sm hover:bg-[#64ffda]/10 transition-colors inline-block text-base"
                 >
