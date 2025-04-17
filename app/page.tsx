@@ -146,30 +146,17 @@ export default function Home() {
   };
   const companies = [
     {
-      name: "Ashutec",
+      name: "American Express",
       description: {
-        position: "Software Engineer",
-        companyName: "Ashutec Solutions",
-        link: "https://www.ashutec.com/",
-        startDate: "August 2019",
-        lastDate: "March 2020",
+        position: "Engineer II",
+        companyName: "American Express",
+        link: "https://www.americanexpress.com/",
+        startDate: "January 2023",
+        lastDate: "Present",
         details: [
-          "Developed and maintained code for in-house and client websites primarily using Vue.js, React, and Javascript",
-          "Manually tested sites in various browsers and mobile devices to ensure cross - browser compatibility and responsiveness"
-        ]
-      }
-    },
-    {
-      name: "Alchemy",
-      description: {
-        position: "Frontend Developer",
-        companyName: "Alchemy Technologies",
-        link: "https://www.alchemytech.ca/",
-        startDate: "April 2020",
-        lastDate: "July 2021",
-        details: [
-          "Developed and shipped highly interactive web applications for clients using React, Redux, MaterialUI, and Tailwind",
-          "Interfaced with clients on a monthly basis, providing project updates"
+          "Developing highly interactive web applications for American Express using React",
+          "Developing Common Libraries used internally and Managing CI/CD Pipelines",
+          "Work with a variety of different languages, platforms, frameworks, and content management systems such as JavaScript, React, Java, SpringBoot and OracleDB"
         ]
       }
     },
@@ -188,17 +175,30 @@ export default function Home() {
       }
     },
     {
-      name: "American Express",
+      name: "Alchemy",
       description: {
-        position: "Engineer II",
-        companyName: "American Express",
-        link: "https://www.americanexpress.com/",
-        startDate: "January 2023",
-        lastDate: "Present",
+        position: "Frontend Developer",
+        companyName: "Alchemy Technologies",
+        link: "https://www.alchemytech.ca/",
+        startDate: "April 2020",
+        lastDate: "July 2021",
         details: [
-          "Developing highly interactive web applications for American Express using React",
-          "Developing Common Libraries used internally and Managing CI/CD Pipelines",
-          "Work with a variety of different languages, platforms, frameworks, and content management systems such as JavaScript, React, Java, SpringBoot and OracleDB"
+          "Developed and shipped highly interactive web applications for clients using React, Redux, MaterialUI, and Tailwind",
+          "Interfaced with clients on a monthly basis, providing project updates"
+        ]
+      }
+    },
+    {
+      name: "Ashutec",
+      description: {
+        position: "Software Engineer",
+        companyName: "Ashutec Solutions",
+        link: "https://www.ashutec.com/",
+        startDate: "August 2019",
+        lastDate: "March 2020",
+        details: [
+          "Developed and maintained code for in-house and client websites primarily using Vue.js, React, and Javascript",
+          "Manually tested sites in various browsers and mobile devices to ensure cross - browser compatibility and responsiveness"
         ]
       }
     },
@@ -689,8 +689,7 @@ export default function Home() {
 
           <h3 className="text-3xl md:text-4xl font-bold text-gray-200 mb-6">Get In Touch</h3>
           <p className="max-w-md mx-auto text-gray-400 mb-10 text-sm sm:text-md">
-            Although I&apos;m not currently looking for freelance opportunities, my inbox is always open. Whether for a
-            potential project or just to say hi, I&apos;ll try my best to answer your email!
+            I&apos;m currently open to freelance opportunities and new projects. If you have an exciting project in mind or just want to say hi, feel free to reach out and I&apos;ll get back to you as soon as possible!
           </p>
 
           <Link
