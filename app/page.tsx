@@ -1,10 +1,10 @@
-"use client"
-import { useState, useEffect, useRef } from "react"
-import { Instagram, Linkedin, Github, Twitter } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import Logo from "./components/Logo"
-import { useLoading } from "./providers/LoadingProvider"
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { Instagram, Linkedin, Github, Twitter } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import Logo from "./components/Logo";
+import { useLoading } from "./providers/LoadingProvider";
 import AboutPic from "../public/portfolio-pic.jpg";
 
 // Types for company data
@@ -28,7 +28,10 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
   const tabsContainerRef = useRef<HTMLDivElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<React.CSSProperties>({
     top: 0,
+    left: 0,
+    bottom: 0,
     height: 0,
+    width: 0,
     opacity: 0,
     transition: 'none'
   });
@@ -38,12 +41,26 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
     if (tabsContainerRef.current) {
       const activeTabElement = tabsContainerRef.current.children[activeTab] as HTMLElement;
       if (activeTabElement) {
-        setIndicatorStyle({
-          top: activeTabElement.offsetTop + 'px',
-          height: activeTabElement.offsetHeight + 'px',
-          opacity: 1,
-          transition: 'none'
-        });
+        if (document.documentElement.clientWidth > 768) {
+          setIndicatorStyle({
+            ...indicatorStyle,
+            top: activeTabElement.offsetTop + 'px',
+            height: activeTabElement.offsetHeight + 'px',
+            width: '2px',
+            opacity: 1,
+            transition: 'none'
+          });
+        } else {
+          setIndicatorStyle({
+            ...indicatorStyle,
+            left: activeTabElement.offsetLeft + 'px',
+            top: activeTabElement.offsetHeight - 2 + 'px',
+            height: '2px',
+            width: activeTabElement.offsetWidth + 'px',
+            opacity: 1,
+            transition: 'none'
+          });
+        }
       }
     }
   }, []);
@@ -53,12 +70,26 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
       const targetTabElement = tabsContainerRef.current.children[index] as HTMLElement;
       if (targetTabElement) {
         // Set smooth transition for subsequent tab changes
-        setIndicatorStyle({
-          top: targetTabElement.offsetTop + 'px',
-          height: targetTabElement.offsetHeight + 'px',
-          opacity: 1,
-          transition: 'all 0.3s ease-out'
-        });
+        if (document.documentElement.clientWidth > 768) {
+          setIndicatorStyle({
+            ...indicatorStyle,
+            top: targetTabElement.offsetTop + 'px',
+            height: targetTabElement.offsetHeight + 'px',
+            width: '2px',
+            opacity: 1,
+            transition: 'all 0.3s ease-out'
+          });
+        } else {
+          setIndicatorStyle({
+            ...indicatorStyle,
+            left: targetTabElement.offsetLeft + 'px',
+            top: targetTabElement.offsetHeight - 2 + 'px',
+            height: '2px',
+            width: targetTabElement.offsetWidth + 'px',
+            opacity: 1,
+            transition: 'all 0.3s ease-out'
+          });
+        }
         setActiveTab(index);
       }
     }
@@ -67,21 +98,21 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
   return (
     <div className="relative flex flex-col md:flex-row">
       {/* Tab list - vertical company names */}
-      <div className="w-full md:w-60 mb-8 md:mb-0 border-b md:border-b-0 md:border-l border-[#64ffda]/30 relative">
+      <div className="w-full overflow-x-auto md:w-60 mb-8 md:mb-0 border-b border-l-0 md:border-b-0 md:border-l border-[#64ffda]/30 relative">
         {/* Animated indicator */}
         <span
-          className="absolute left-0 w-0.5 bg-[#64ffda] z-10"
+          className="absolute left-0 bg-[#64ffda] z-10"
           style={indicatorStyle}
         ></span>
 
-        <div ref={tabsContainerRef}>
+        <div ref={tabsContainerRef} className="flex flex-row md:flex-col">
           {companies.map((company: Company, index: number) => (
             <button
               key={company.name}
-              className={`text-left py-3 px-5 w-full focus:outline-none transition-all font-mono text-sm cursor-pointer
+              className={`text-left py-3 px-5 w-full outline-none transition-all font-mono text-sm cursor-pointer
                 ${index === activeTab ?
                   'text-[#64ffda] bg-[#112240]/50' :
-                  'text-gray-400 hover:text-[#64ffda] hover:bg-[#112240]/20'}`}
+                  'text-gray-300 hover:text-[#64ffda] hover:bg-[#112240]/20'}`}
               onClick={() => handleTabChange(index)}
             >
               {company.name}
@@ -116,12 +147,12 @@ const ExperienceTabs = ({ companies }: { companies: Company[] }) => {
                   </Link>
                 </span>
               </h3>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-gray-300 mt-1">
                 {company.description.startDate} - {company.description.lastDate}
               </p>
             </div>
 
-            <ul className="space-y-3 text-sm text-gray-400 mt-5">
+            <ul className="space-y-3 text-sm text-gray-300 mt-5">
               {company.description.details.map((detail: string, i: number) => (
                 <li key={i} className="flex">
                   <span className="text-[#64ffda] mr-2 flex-shrink-0">▹</span>
@@ -152,7 +183,7 @@ export default function Home() {
         companyName: "American Express",
         link: "https://www.americanexpress.com/",
         startDate: "January 2023",
-        lastDate: "Present",
+        lastDate: "May 2025",
         details: [
           "Developing highly interactive web applications for American Express using React",
           "Developing Common Libraries used internally and Managing CI/CD Pipelines",
@@ -351,7 +382,7 @@ export default function Home() {
               </li>
               <li>
                 <Link
-                  href="https://drive.google.com/file/d/19r3mIyShOkOAAXVclH_0EaxNQAp-kUsk/view"
+                  href="https://drive.google.com/file/d/12llr7QvEY7TpPMgiO0gi8hYvh1DjmiAc/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-3 py-2 rounded-sm hover:bg-[#64ffda]/10 transition-colors"
                 >
@@ -432,7 +463,7 @@ export default function Home() {
               </li>
               <li className="w-full text-center mt-6">
                 <Link
-                  href="https://drive.google.com/file/d/19r3mIyShOkOAAXVclH_0EaxNQAp-kUsk/view"
+                  href="https://drive.google.com/file/d/12llr7QvEY7TpPMgiO0gi8hYvh1DjmiAc/view"
                   target="_blank"
                   className="border border-[#64ffda] text-[#64ffda] px-8 py-4 rounded-sm hover:bg-[#64ffda]/10 transition-colors inline-block text-base"
                 >
@@ -476,9 +507,9 @@ export default function Home() {
         {/* Hero section */}
         <section id="hero" className={`min-h-[80vh] flex flex-col justify-center ${isLoading ? 'opacity-0' : 'opacity-100 animate-fadeInUp'}`}>
           <p className="text-[#64ffda] mb-5 font-mono text-sm">Hi, my name is</p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-200 mb-4">Harsh Dave.</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-100 mb-4">Harsh Dave.</h1>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-400 mb-6">I build things for the web.</h2>
-          <p className="max-w-xl text-gray-400 mb-12 text-sm sm:text-md">
+          <p className="max-w-xl text-gray-300 mb-12 text-sm sm:text-md">
             I&apos;m a software engineer based in Bengaluru specializing in building and occasionally designing
             high-quality websites and applications.
           </p>
@@ -500,22 +531,22 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="md:col-span-2">
-              <p className="mb-4 text-sm sm:text-md text-gray-400">
+              <p className="mb-4 text-sm sm:text-md text-gray-300">
                 Hello! I&apos;m Harsh, a software engineer based in Bengaluru, who
                 enjoys building things that live on the internet. I develop websites
                 and web applications that provide intuitive, pixel-perfect user interfaces
                 with efficient and modern backends.
               </p>
-              <p className="mb-4 text-sm sm:text-md text-gray-400">
+              <p className="mb-4 text-sm sm:text-md text-gray-300">
                 <span>Shortly after graduating from{' '}</span><Link href="https://gtu.ac.in/" target="_blank" className="text-[#64ffda]">Gujarat Technological University</Link>
                 <span>, I joined the development team at{' '}</span><Link href="https://www.ashutec.com/" target="_blank" className="text-[#64ffda]">Ashutec Solutions</Link>
                 <span>, where I work on a wide variety of interesting and meaningful projects on a daily basis.</span>
                 <span> Currently I work at{' '}</span><Link href="https://www.americanexpress.com/" target="_blank" className="text-[#64ffda]">American Express</Link>
                 <span>, where I work on a wide variety of interesting and meaningful projects on a daily basis.</span>
               </p>
-              <p className="mb-6 text-sm sm:text-md text-gray-400">Here are a few technologies I&apos;ve been working with recently:</p>
+              <p className="mb-6 text-sm sm:text-md text-gray-300">Here are a few technologies I&apos;ve been working with recently:</p>
 
-              <div className="grid grid-cols-2 gap-2 text-xs text-gray-400">
+              <div className="grid grid-cols-2 gap-2 text-xs text-gray-300">
                 <div className="flex items-center">
                   <span className="text-[#64ffda] mr-2">▹</span> HTML & (S)CSS
                 </div>
@@ -585,12 +616,12 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="flex gap-3">
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
+                  {/* <a href="#" className="text-gray-300 hover:text-[#64ffda]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                     </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
+                  </a> */}
+                  <a href="https://diypc.vercel.app" target="_blank" className="text-gray-300 hover:text-[#64ffda]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                       <polyline points="15 3 21 3 21 9"></polyline>
@@ -599,49 +630,16 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">E-commerce Platform</h3>
-              <p className="text-xs text-gray-400 mb-4">
-                A full-featured e-commerce solution with product management, cart functionality, and secure payment processing.
+              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">DIYPC</h3>
+              <p className="text-xs text-gray-300 mb-4">
+                DIYPC helps you create a custom PC that meets your needs and budget with AI-powered recommendations, compatibility checking, and expert guidance.
               </p>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                <span>React</span>
-                <span>Node.js</span>
-                <span>MongoDB</span>
-                <span>Stripe API</span>
-              </div>
-            </div>
-
-            <div className="bg-[#112240] p-6 rounded hover:-translate-y-2 transition-all duration-300">
-              <div className="flex justify-between items-start mb-6">
-                <div className="text-[#64ffda]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                </div>
-                <div className="flex gap-3">
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">Analytics Dashboard</h3>
-              <p className="text-xs text-gray-400 mb-4">
-                Interactive data visualization dashboard with real-time analytics, customizable widgets, and reporting.
-              </p>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-400">
-                <span>React</span>
-                <span>D3.js</span>
+              <div className="flex flex-wrap gap-2 text-xs text-gray-300">
+                <span>Next.js</span>
+                <span>Tailwind CSS</span>
+                <span>Framer Motion</span>
                 <span>Firebase</span>
-                <span>Chart.js</span>
+                <span>Gemini</span>
               </div>
             </div>
 
@@ -653,12 +651,12 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="flex gap-3">
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
+                  <a href="https://github.com/coderhd/ds-algo-flashcards" target="_blank" className="text-gray-300 hover:text-[#64ffda]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                     </svg>
                   </a>
-                  <a href="#" className="text-gray-400 hover:text-[#64ffda]">
+                  <a href="https://ds-algo-flashcards.vercel.app" target="_blank" className="text-gray-300 hover:text-[#64ffda]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                       <polyline points="15 3 21 3 21 9"></polyline>
@@ -667,15 +665,48 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">Social Media App</h3>
-              <p className="text-xs text-gray-400 mb-4">
-                Mobile-first social networking application with real-time messaging, post sharing, and user profiles.
+              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">DSA Flashcards</h3>
+              <p className="text-xs text-gray-300 mb-4">
+                A modern, mobile-friendly web application for studying data structures and algorithms on the go. It&apos;s a perfect companion for technical interview preparation.
               </p>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-400">
+              <div className="flex flex-wrap gap-2 text-xs text-gray-300">
+                <span>Next.js</span>
+                <span>Shadcn UI</span>
+                <span>Tailwind CSS</span>
+              </div>
+            </div>
+
+            <div className="bg-[#112240] p-6 rounded hover:-translate-y-2 transition-all duration-300">
+              <div className="flex justify-between items-start mb-6">
+                <div className="text-[#64ffda]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <div className="flex gap-3">
+                  {/* <a href="#" className="text-gray-300 hover:text-[#64ffda]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                  </a> */}
+                  <a href="https://play.google.com/store/apps/details?id=com.instacaptions" target="_blank" className="text-gray-300 hover:text-[#64ffda]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <h3 className="text-gray-200 text-lg sm:text-xl mb-2 font-medium">Insta Caption</h3>
+              <p className="text-xs text-gray-300 mb-4">
+                Insta Caption is a mobile application that helps users generate AI-based content for social media including captions, hashtags, and profile bios.
+              </p>
+              <div className="flex flex-wrap gap-2 text-xs text-gray-300">
                 <span>React Native</span>
-                <span>Express</span>
-                <span>Socket.io</span>
-                <span>AWS</span>
+                <span>Firebase</span>
+                <span>GPT 4.1</span>
+                <span>AdMob</span>
               </div>
             </div>
           </div>
@@ -688,7 +719,7 @@ export default function Home() {
           </h2>
 
           <h3 className="text-3xl md:text-4xl font-bold text-gray-200 mb-6">Get In Touch</h3>
-          <p className="max-w-md mx-auto text-gray-400 mb-10 text-sm sm:text-md">
+          <p className="max-w-md mx-auto text-gray-300 mb-10 text-sm sm:text-md">
             I&apos;m currently open to freelance opportunities and new projects. If you have an exciting project in mind or just want to say hi, feel free to reach out and I&apos;ll get back to you as soon as possible!
           </p>
 
